@@ -1,5 +1,30 @@
 ## Too Much Storage
 
+Sid wants to download all the photos of the previous GDSC session to his computer, but is unsure whether he has enough space in his disk to download all of them.He has tasked you with finding out how much space he would have left after he downloads all the photos.
+
+He has provided you with a bitmap of his disk in the form of a an array of binary strings, having 8 elements each, with 1 denoting occupied space and 0 denoting free space. Also provided is an array of binary strings, denoting the bitmaps of the various photos he wishes to download. Do note that **only one photo can be inserted into any given partition**. Return an integer that denotes the number of zeroes that would be left across all partitions once all the photos have been inserted. Return -1 in case it is not possible to insert any one of photos.
+
+sample input: partitions:`{"10011000","11001111","11000011","10101111"}` and photos: `{"100","11","1"}`
+output: 7 ``
+
+Explanation: 
+In every iteration, the zeroes being replaces is made **bold**, and the element of the array replacing it is written as its superscript.
+
+Partition selected | Current string | element to be inserted | string after insertion
+--- | ---| --- | ---
+1 | 10011000 | 100 | 10011 ~~**000**~~ <sup>100</sup> 
+2 | 11001111 | 11 |  11 ~~**00**~~ <sup>11</sup> 1111
+3 | 11000011 | 1 | 1100 ~~**0**~~ <sup>1</sup> 011
+
+Amount of empty space left = 2+0+3+2 = 7
+
+
+
+**Note**: You can't consider zeroes from an element in the array as empty space, for example, after inserting the first element `100` into the first partition, we get 100111**00**-  the highlighted zeroes were inserted as part of the first photo, and thus cannot be considered free space and should not be counted.
+
+---
+
+
 This problem probably looks like it requires some complex string manipulation, with having to insert `1`'s and remove `0`'s. However, there are two key observations to be made here:
 
 1. You've only been asked to **return the number of empty spaces, _not_ the partitions after insertions.** Thus, there is no real need to actually modify the strings, only some counting is needed.
