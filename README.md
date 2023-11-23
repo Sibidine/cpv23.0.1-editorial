@@ -4,6 +4,15 @@
 
 ## Table of Contents:
 
+0. [Preface](https://github.com/Sibidine/cpv23.0.1-editorial#preface)
+1. [Welcome to GDSC](https://github.com/Sibidine/cpv23.0.1-editorial#1--welcome-to-gdsc)
+2. [Goodies kitna loge discuss karle](https://github.com/Sibidine/cpv23.0.1-editorial#2-goodies-kitna-loge-discuss-karle)
+3. [Squarish Archery Target](https://github.com/Sibidine/cpv23.0.1-editorial#3-squarish-archery-target)
+4. [Koto Sponsors Lagbe](https://github.com/Sibidine/cpv23.0.1-editorial#4-koto-sponsors-lagbe)
+5. [Too Much Storage](https://github.com/Sibidine/cpv23.0.1-editorial#5-too-much-storage)
+6. [Swags where?](https://github.com/Sibidine/cpv23.0.1-editorial#problem-statement-5)
+7. [Google Dino](https://github.com/Sibidine/cpv23.0.1-editorial#7-google-dino)
+8. [Alice goes Teaching](https://github.com/Sibidine/cpv23.0.1-editorial#8-alice-goes-teaching)
 
 ## Preface:
 
