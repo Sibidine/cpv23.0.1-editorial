@@ -359,8 +359,7 @@ Now the value of c is given and the value of a is restricted between 1 and 1000,
 $$\implies b^2 = 4ac$$
 $$\implies \boxed {a = b^2/4c}$$
 
-
-# Solution
+#### Code: 
 
 ```cpp
 #include <cmath>
@@ -941,5 +940,15 @@ int main() {
     return 0;
 }
 ```
+---
+---
 
+### Credits:
+
+#### GDSC Content team:
+
+Siddharth Banerjee (IT 25)
+Debabrata Mondal (IT 25)
+Spandan Das (CSE 25)
+Arya Pandit (ETCE 26)
 
