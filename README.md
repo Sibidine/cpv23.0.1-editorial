@@ -945,10 +945,38 @@ int main() {
 
 ### Credits:
 
-#### GDSC Content team:
+#### Editorial:
 
-Siddharth Banerjee (IT 25)\
-Debabrata Mondal (IT 25)\
-Spandan Das (CSE 25)\
-Arya Pandit (ETCE 26)
+- Siddharth Banerjee
+	- Too Much Storage
+	- Alice Goes teaching
+- Debabrata Mondal
+	- Swags where?
+	- Google Dino
+- Spandan Das
+	- Welcome to GDSC!!
+	- Koto Sponsors Lagbe
+- Arya Pandit
+	- Goodies kitna loge discuss karle
+	- Squarish Archery Target
+
+#### Problem Setters:
+- Vikash Sangai
+	- Welcome to GDSC!!
+	- Koto Sponsors Lagbe
+	- Swags where
+	- Alice goes teaching
+- Anupam Ghosh
+	- Goodies kitna loge discuss karle
+	- Squarish Archery Target
+- Upayan De
+	- Google Dino
+- Siddharth Banerjee
+	- Too much Storage
+
+#### Testers-
+Azimuddin Sheikh
+Shakya Majumdar
+Irfan Habeeb Gazi
+
 
