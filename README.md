@@ -947,8 +947,8 @@ int main() {
 
 #### GDSC Content team:
 
-Siddharth Banerjee (IT 25)
-Debabrata Mondal (IT 25)
-Spandan Das (CSE 25)
+Siddharth Banerjee (IT 25)\
+Debabrata Mondal (IT 25)\
+Spandan Das (CSE 25)\
 Arya Pandit (ETCE 26)
 
