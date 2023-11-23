@@ -1,4 +1,4 @@
-![alt text](https://github.com/Sibidine/cpv23.0.1-editorial/blob/28baf37379bfe5f844c706f372a7b8d8d4a2a0c3/gdsc%20logo%20png%40300x.png?raw=true)
+![](https://i.postimg.cc/2j1qqCjW/gdsc-logo-png-300x.png)
 
 # cp v23.0.1 Editorial
 
@@ -251,7 +251,7 @@ In this example for the 10*10 board the cells which at odd levels from centre i.
 Let us take the case of N=6
 Since we are creating a figure matrix, all we need is good algorithm to print "X" at the appropriate positional values (say i and j ) of the matrix.
 
-![alt text](https://github.com/Sibidine/cpv23.0.1-editorial/blob/28baf37379bfe5f844c706f372a7b8d8d4a2a0c3/Pasted%20image%2020231116005347.jpeg?raw=true)
+![](https://i.postimg.cc/RC2WK2qD/Pasted-image-20231116005347.jpg)
 
 We carry out an operation [1] to convert the x and y coordinates to a mirror series like 0,1,2,2,1,0. Now from the figure we can see that only those squares have "X" which are having minimum of X and Y values divisible by 2. Thus the code.
 
