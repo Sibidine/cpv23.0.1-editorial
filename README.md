@@ -727,6 +727,10 @@ The time complexity for this piece of code is $O(N^2)$, which isn't exactly grea
 
 **Let us now optimise this!**
 We basically need to find the number of elements that are greater than or equal to the rank of the participant. If you've had your binary search meal, you might feel that this is very similar to finding the *lower bound*.
+
+> **Lower bound**
+> The lowest position where a value could be inserted without breaking the ordering.
+
 If you sort the input array and then find the index of the lower bound of the participant's rank, you can use that to calculate the number of elements that are greater than or equal to that rank.
 
 ```cpp
