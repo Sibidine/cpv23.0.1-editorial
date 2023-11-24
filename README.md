@@ -805,6 +805,202 @@ Notice how we also didn't create a `vector` for Vikash's distribution. Instead w
 
 ## 7. Google Dino
 
+### Problem Statement:
+Upayan has no internet connection at the moment, so he's playing everyone's favourite Dino game on Google Chrome. However, he's lazy, so he decides on the following lazy strategy of playing the game ---
+
+He keeps robotically pressing the spacebar at regular intervals starting from the beginning of the game. Find out the maximum possible score he can achieve this way.
+
+![](https://github-production-user-asset-6210df.s3.amazonaws.com/96875426/278837803-3e1c81f2-fe52-4e06-b7fc-434f41676029.png)
+
+Formally, we consider the desert to be an infinitely long one-dimensional number line. You are given an array of integers $[a_1, a_2, a_3, ... a_n]$ indicating the positions of the cactii (obstacles). The dino starts running from position $0$. Whenever the dino is at position $x$ and the spacebar is pressed, the dino jumps and lands at position $x + j$, evading all the obstacles in $[x + 1, x + j - 1]$. Upayan's strategy is to keep pressing the spacebar at intervals of $k$ units, starting from position $0$. Note that **$k$ cannot be smaller than $j$**, since the dino cannot jump mid-air. When the dino collides with a cactus the game ends, and the score is calculated as the total distance the dino travelled without colliding with a cactus. If the dino successfully evades all the cactii without colliding, the game switches to the night mode, and the score is considered infinite.
+
+Find out the value of $k$ for which Upayan can acheive the maximum score using this lazy strategy. If there are multiple optimal values of $k$ print the **smallest** among them.
+
+### Input Format
+
+The first line of input contains two integers $n$ and $j$ representing the number of cactii, and the jump length respectively.
+
+The second line of input contains $n$ integers $a_1, a_2, a_3, ... a_n$ where $a_i$ indicates the position of the $i^{th}$ obstacle.
+
+### Output Format
+
+In a single line, print the optimal value of $k$.
+
+### Constraints
+
+$$1 \leq n \leq 10^4$$ $$1 \leq a_1 < a_2 < a_3 < ... < a_n \leq 10^9$$ $$2 \leq j \leq 10^9$$ $$\exists i : 0 \leq a_i - j \leq 1000$$
+
+### Sample Tests
+
+#### Input
+
+```
+
+4 3
+
+2 6 7 10
+
+```
+
+#### Output
+
+```
+
+5
+
+```
+
+#### Explanation
+
+The situation is shown in the diagram below:
+
+<p align="center"><a href="https://ibb.co/RgW3FCG"><img src="https://i.ibb.co/YNGcCt4/image.png" alt="image" border="0"></a></p>
+
+When $k = 5$,
+
+- Upayan presses the spacebar at position $0$, and the dino jumps to position $3$, evading the cactus on $2$.
+
+- Then the dino runs from $3$ to $5$.
+
+- He again presses the spacebar at $5$, and the dino jumps to $8$, evading both the cactii on $6$ and $7$.
+
+- The dino then runs from $8$ to $10$, and collides with the cactus at $10$, and the game is over
+
+Thus, the total score is equal to $9$. It can be proved that this is the maximum attainable score for the above case.
+
+---
+### Solution:
+
+What the problem is basically telling us is that the dinosaur can jump at locations which are a multiple of `k`.
+We also know that the value of k ranges from `j` to the position of the last cactus.
+
+$$
+k \in [\;j,\; positions[\; positions.size() - 1\;]\;]
+$$
+
+$k \geq j$, since the dinosaur cannot jump mid-air
+
+$k \leq positions[\;positions.size() - 1\;]$, since the dinosaur will definitely hit the last cactii before reaching the next jump location after position `0`.
+
+We could potentially loop over all the possible values of `k` and then return the one which results in the maximum score. Sound plan.
+However, there's an opportunity to further reduce the domain of `k`.
+
+Looking at the last of the provided constraints, we can infer that there exists at least one cactus whose position is less than `j + 1000`.
+
+$$
+\exists \;i : 0 \leq a_i - j \leq 1000
+$$
+
+Let's take a simplified example where we only have one cactus satisfying the above constraint, at position `1000 + j`.
+
+![](https://i.postimg.cc/q7w3jnPN/dino.jpg)
+
+Since we want to prove that `k` cannot be more than `j + 1000`, let's find out what happens when `k` is actually higher and equal to `j + 1001`.
+First, the dinosaur will jump from `0` to `j` and then run to the next multiple of `k` which is at `j + 1001`. But it will encounter a cactus before that!
+Hence, it doesn't make sense to choose a value of `k` beyond `1000 + j` since the dinosaur will collide with a cactus before that anyway and the game would end.
+
+$$
+k \in [\;j,\; j + 1000\;)
+$$
+
+**Finding the score**
+
+The dinosaur only collides with a cactus when it's on land. If we look at the movement of the dinosaur, it is something like the following:
+
+`k*0 + j -> k*1` - Dinosaur is on land
+`k*1 + j -> k*2` - Dinosaur is on land
+`...`
+`k*i + j -> k*(i + 1)` - Dinosaur is on land
+
+If there's any cactus between these positions, the game will end and we can find out the score.
+We could do a linear search, but since the cactus positions are given in sorted order we can utilise *binary search*.
+
+For every iteration of `i`, we check if the dinosaur collides with any cactus when moving on land from `k*i + j` to `k*(i + 1)`.
+If it doesn't, we ensure that the dinosaur doesn't land on a cactus when it completes its jump from `k*(i + 1)`.
+When we're sure the dinosaur doesn't collide with any cactus, we return `INT_MAX`. Otherwise the position of the cactus with which it collided is returned after subtracting `1`.
+
+```cpp
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <climits>
+using namespace std;
+
+// Return the position of cactus encountered (if any) when moving from startPos
+// Essentially calculates the lower bound of startPos in the array positions
+int findCactusPos(vector<int> &positions, int startPos) {
+    int low = 0, high = positions.size() - 1;
+    int cactusPos = -1;
+    while (low <= high) {
+        int mid = high - ((high - low) / 2);
+        
+        if (positions[mid] == startPos) {
+            return startPos;
+        }
+        else if (positions[mid] > startPos) {
+            cactusPos = positions[mid];
+            high = mid - 1;
+        }
+        else
+            low = mid + 1;
+    }
+    return cactusPos;
+}
+
+// Calculate score for given set of j and k
+int score(vector<int> &positions, int j, int k) {
+    // k*0 + j -> k*1
+    // k*1 + j -> k*2
+    // ...
+    for (int i = 0; i < (positions[positions.size() - 1] / k) + 1; i++) {
+        int l = k*i + j;
+        int r = k*(i + 1);
+        
+		// Check if dino collides with cactus while moving from l to r
+        int pos = findCactusPos(positions, l);
+        if (pos != -1 and pos <= r) {
+            return pos - 1;
+        }
+        // Check if jump ends on top of a cactus
+        pos = findCactusPos(positions, r + j);
+        if (pos != -1 and pos == r + j) {
+            return findCactusPos(positions, r) - 1;
+        }
+    }
+    return INT_MAX;
+}
+
+int main() {
+    int n, j;
+    // Take inputs
+    cin >> n >> j;
+    vector<int> positions;
+    // Input array of cactus positions
+    for (int i = 0; i < n; i++) {
+        int pos;
+        cin >> pos;
+        positions.push_back(pos);
+    }
+    
+    int k = j;
+    int maxScore = 0;
+
+	// Loop over all the possible values of k to find the maximum out of those
+    for (int i = j; i < j + 1000; i++) {
+        int currScore = score(positions, j, i);
+        if (currScore > maxScore) {
+            maxScore = currScore;
+            k = i;
+        }
+    }
+    cout << k;
+
+    return 0;
+}
+```
+
 ---
 ---
 
